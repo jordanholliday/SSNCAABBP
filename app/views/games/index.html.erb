@@ -1,0 +1,13 @@
+<h1>Games</h1>
+
+<h3>Add New Game</h3>
+<%= render 'form' %>
+
+<h3>All Games</h3>
+<% @rounds.each do |round| %>
+  <% round.games.each do |game| %>
+    <%= game.home_team.name %>,<%= game.away_team.name %>,<%= game.round.name %>
+  <% end %>
+<% end %>
+
+

@@ -1,0 +1,37 @@
+<p>Add Game</p>
+<form action="<%= games_url %>" method="POST">
+  <%= auth_token %>
+  <p><label for="Home Team">Home Team</label>
+    <select id="Home Team" name="game[home_team_id]">
+      <% @teams.each do |team| %>
+      <option value="<%= team.id %>"><%= team.name %></option>
+      <% end %>
+    </select>
+  </p>
+  <p><label for="Away Team">Away Team</label>
+    <select id="Away Team" name="game[away_team_id]">
+      <% @teams.each do |team| %>
+      <option value="<%= team.id %>"><%= team.name %></option>
+      <% end %>
+    </select>
+  </p>
+  <p><label for="Region">Region</label>
+    <select id="Region" name="game[region]">
+      <% Game.regions.each do |region| %>
+      <option value="<%= region %>"><%= region %></option>
+      <% end %>
+    </select>
+  </p>
+  <p><label for="Round">Round</label>
+    <select id="Round" name="game[round_id]">
+      <% Round.all.each do |round| %>
+      <option value="<%= round.id %>"><%= round.name %></option>
+      <% end %>
+    </select>
+  </p>
+  <p>
+    <input type="submit" value="Add Game">
+  </p>
+</form>
+
+</form>

@@ -1,0 +1,15 @@
+<h1>Add Team</h1>
+<form action="<%= teams_url %>" method="POST">
+  <%= auth_token %>
+  <p>
+    <label for="name">Team Name</label>
+    <input type="text" name="team[name]" value="<%= @team.name %>" id="name">
+  </p>
+  <p>
+    <label for="seed">Seed</label>
+    <input type="text" name="team[seed]" value="<%= @team.seed %>" id="seed">
+  </p>
+  <p>
+    <input type="submit" value="Add Team">
+  </p>
+</form>

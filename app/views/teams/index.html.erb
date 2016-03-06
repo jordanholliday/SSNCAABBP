@@ -1,0 +1,22 @@
+<h1>All Teams</h1>
+<p>Add Team</p>
+<form action="<%= teams_url %>" method="POST">
+  <%= auth_token %>
+  <p>
+    <label for="name">Team Name</label>
+    <input type="text" name="team[name]" value="<%= @team.name %>" id="name">
+  </p>
+  <p>
+    <label for="seed">Seed</label>
+    <input type="text" name="team[seed]" value="<%= @team.seed %>" id="seed">
+  </p>
+  <p>
+    <input type="submit" value="Add Team">
+  </p>
+</form>
+
+<% @teams.each do |team| %>
+  <p>(<%= team.seed %>) <%= team.name %> <%= link_to "Delete", teams_url, method: :delete %></p>
+<% end %>
+
+

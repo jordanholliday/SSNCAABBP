@@ -1,12 +1,13 @@
 <h1>Games</h1>
 
-<h3>Add New Game</h3>
+<h2>Add New Game</h2>
 <%= render 'form' %>
 
-<h3>All Games</h3>
+<h2>All Games</h2>
 <% @rounds.each do |round| %>
-  <% round.games.each do |game| %>
-    <%= game.home_team.name %>,<%= game.away_team.name %>,<%= game.round.name %>
+  <h3><%= round.name %></strong> </h3>
+  <% round.games.sort_by { |game| game.region }.each do |game| %>
+    <%= render game %>
   <% end %>
 <% end %>
 

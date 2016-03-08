@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306155015) do
+ActiveRecord::Schema.define(version: 20160308030519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(version: 20160306155015) do
   add_index "games", ["home_team_id"], name: "index_games_on_home_team_id", using: :btree
   add_index "games", ["round_id"], name: "index_games_on_round_id", using: :btree
 
+  create_table "picks", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "team_id",    null: false
+    t.integer  "points",     null: false
+    t.integer  "round_id",   null: false
+  end
+
+  add_index "picks", ["user_id"], name: "index_picks_on_user_id", using: :btree
+
   create_table "rounds", force: :cascade do |t|
     t.string   "name",        null: false
     t.datetime "picks_start", null: false
@@ -36,6 +47,16 @@ ActiveRecord::Schema.define(version: 20160306155015) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "team_round_results", force: :cascade do |t|
+    t.integer  "team_id",    null: false
+    t.integer  "round_id",   null: false
+    t.boolean  "win",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "team_round_results", ["team_id", "round_id"], name: "index_team_round_results_on_team_id_and_round_id", unique: true, using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name",       null: false

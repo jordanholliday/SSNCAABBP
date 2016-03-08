@@ -12,8 +12,8 @@ class TeamsController < ApplicationController
     if @team.save
       redirect_to teams_url
     else
-      flash.now[:errors] = @team.error.full_messages
-      render :index
+      flash[:errors] = @team.errors.full_messages
+      redirect_to teams_url
     end
   end
 

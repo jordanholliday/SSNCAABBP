@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :password, length: {minimum: 6, allow_nil: true}
 
+  has_many :picks
+
   attr_reader :password
 
   def password=(password)
@@ -29,6 +31,11 @@ class User < ActiveRecord::Base
   def reset_session_token
     self.session_token = SecureRandom.urlsafe_base64
     save!
+  end
+
+  def score
+    return 1000 if Round.where("picks_end < ?", DateTime.now).empty?
+    # come back to total up pick results
   end
 
   private

@@ -1,0 +1,24 @@
+<form action="<%= picks_url %>" method="POST">
+  <%= auth_token %>
+  <p>
+    <label for="Round">Round</label>
+    <select name="pick[round_id]">
+      <% @current_rounds.each do |round| %>
+      <option value="<%= round.id %>"><%= round.name %></option>
+      <% end %>
+    </select>
+  </p>
+  <p>
+    <label for="Round">Team</label>
+    <select name="pick[team_id]">
+      <% @teams.each do |team| %>
+      <option value="<%= team.id %>"><%= team.name %></option>
+      <% end %>
+    </select>
+  </p>
+  <p>
+    <label for="Round">Points</label>
+    <input type="text" name="pick[points]">
+  </p>
+  <input type="submit" value="Add Pick">
+</form>

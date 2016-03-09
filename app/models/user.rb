@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     return 2000 unless TeamRoundResult.any?
     ActiveRecord::Base.connection.select_all( <<-SQL
         SELECT
-          SUM(picks.points * teams.seed) AS points
+          SUM(picks.points * picks.multiplier * teams.seed) AS points
         FROM
           team_round_results
         JOIN

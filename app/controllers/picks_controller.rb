@@ -46,7 +46,7 @@ class PicksController < ApplicationController
 
   private
   def pick_params
-    params.require(:pick).permit(:team_id, :round_id, :points)
+    params.require(:pick).permit(:team_id, :round_id, :points, :multiplier)
   end
 
   def redirect_to_new_picks

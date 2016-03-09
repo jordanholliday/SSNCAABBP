@@ -1,7 +1,8 @@
 class Pick < ActiveRecord::Base
-  validates :user_id, :round_id, :team_id, :points, presence: true
+  validates :user_id, :round_id, :team_id, :points, :multiplier, presence: true
   validates :points, numericality: {only_integer: true}
-  validate :bet_limit_half_total_points_per_round
+  validates :multiplier, inclusion: { in: [1, 2] }
+  validate :bet_limit_half_total_points_per_round, :one_double_per_round, :one_bet_per_team_per_round
 
   belongs_to :user
   belongs_to :round
@@ -25,13 +26,32 @@ class Pick < ActiveRecord::Base
     total_points_wagered_round = user.picks.where(round_id: round_id).sum(:points)
     limit = (user.score / 2)
     if total_points_wagered_round + points > limit
-      errors[:points] << ": You can only wager #{limit - total_points_wagered_round} more points in the #{round.name}"
+      errors[:pick] << ": You can only wager #{limit - total_points_wagered_round} more points in the #{round.name}"
     end
   end
 
   def pick_round_is_open
     unless pick.round.picks_open?
-      errors[:round] << ": No more picks for that round!"
+      errors[:pick] << ": No more picks for that round!"
+    end
+  end
+
+  def one_double_per_round
+    return if self.multiplier == 1
+    if Pick.where(
+        user_id: self.user_id,
+        round_id: self.round_id,
+        multiplier: 2).any?
+      errors[:pick] << ": Only one double per round!"
+    end
+  end
+
+  def one_bet_per_team_per_round
+    if Pick.where(
+        user_id: self.user_id,
+        round_id: self.round_id,
+        team_id: self.team_id).any?
+      errors[:pick] << ": Already picked that team!"
     end
   end
 

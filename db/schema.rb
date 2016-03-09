@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309023018) do
+ActiveRecord::Schema.define(version: 20160309223043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160309023018) do
     t.integer  "team_id",    null: false
     t.integer  "points",     null: false
     t.integer  "round_id",   null: false
+    t.integer  "multiplier"
   end
 
   add_index "picks", ["user_id"], name: "index_picks_on_user_id", using: :btree

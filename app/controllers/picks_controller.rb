@@ -1,4 +1,5 @@
 class PicksController < ApplicationController
+  before_action :redirect_if_logged_out
   before_action :redirect_to_new_picks, only: [:index]
 
   def index
@@ -39,7 +40,7 @@ class PicksController < ApplicationController
 
   def destroy
     pick = Pick.find(params[:id])
-    pick.destroy
+    pick.destroy if pick.round.picks_open?
     redirect_to new_pick_url
   end
 

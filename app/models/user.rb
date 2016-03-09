@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
 
   def score
     return 1000 if Round.where("picks_end < ?", DateTime.now).empty?
+    1000
     # come back to total up pick results
   end
 

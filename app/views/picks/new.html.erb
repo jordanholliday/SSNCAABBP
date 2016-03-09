@@ -12,7 +12,7 @@
     <label for="Round">Team</label>
     <select name="pick[team_id]">
       <% @teams.each do |team| %>
-      <option value="<%= team.id %>"><%= team.name %></option>
+      <option value="<%= team.id %>"><%= team.name %> (<%= team.seed %>)</option>
       <% end %>
     </select>
   </p>

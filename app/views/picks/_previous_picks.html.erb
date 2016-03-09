@@ -8,9 +8,10 @@
 
   <% round_picks.each do |pick| %>
     <p>
-      <%= pick.team.name %>
-      <%= pick.points %>
+      (<%= pick.team.seed %>) <%= pick.team.name %> <%= pick.points %>
+    <% if round.picks_open? %>
       <%= link_to "Delete", pick_url(pick), method: :delete %>
+    <% end %>
     </p>
   <% end %>
   <% if round_picks.length == 0 %>

@@ -26,4 +26,9 @@ class Round < ActiveRecord::Base
     )
   end
 
+  def picks_open?
+    now = DateTime.now
+    now >= picks_start && now <= picks_end
+  end
+
 end

@@ -20,4 +20,10 @@ class Pick < ActiveRecord::Base
       errors[:points] << ": You can only wager #{limit - total_points_wagered_round} more points in the #{round.name}"
     end
   end
+
+  def pick_round_is_open
+    unless pick.round.picks_open?
+      errors[:round] << ": No more picks for that round!"
+    end
+  end
 end

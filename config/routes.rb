@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :picks
   resources :rounds, only:[:index]
   resources :statics, only:[:index]
+  resources :team_round_results, only:[:create, :destroy]
 
   root to: 'statics#index'
 end

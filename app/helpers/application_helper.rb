@@ -12,7 +12,31 @@ module ApplicationHelper
         <input type="hidden" name="_method" value="DELETE">
         #{ auth_token }
         <input type="submit" value="DELETE">
-      </form
+      </form>
     HTML
   end
+
+  def team_round_result_win_button(team_id, round_id)
+    button_to "Record Win",
+    team_round_results_url,
+    params: { method: :post, win: true, team_id: team_id, round_id: round_id }
+  end
+
+  def team_round_result_loss_button(team_id, round_id)
+    button_to "Record Loss",
+    team_round_results_url,
+    params: { method: :post, win: false, team_id: team_id, round_id: round_id }
+  end
+
+  def already_won?(team, round)
+    team.team_round_results.select {
+      |result| result.round_id == round.id && result.win}.any?
+  end
+
+  def already_lost?(team, round)
+    team.team_round_results.select {
+      |result| result.round_id == round.id && result.win == false}.any?
+  end
+
+
 end

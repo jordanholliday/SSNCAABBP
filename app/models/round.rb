@@ -7,7 +7,11 @@ class Round < ActiveRecord::Base
   has_many :away_teams, through: :games
 
   def self.reverse_chron
-    Round.all.reverse
+    Round.all.sort_by { |round| round.id * -1}
+  end
+
+  def <=>(round)
+    self.id <=> round.id
   end
 
   def teams_in_round

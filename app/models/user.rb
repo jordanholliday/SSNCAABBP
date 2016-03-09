@@ -34,12 +34,6 @@ class User < ActiveRecord::Base
     save!
   end
 
-  def score
-    return 1000 if Round.where("picks_end < ?", DateTime.now).empty?
-    1000
-    # come back to total up pick results
-  end
-
   def <=>(user)
     self.score <=> user.score
   end
@@ -47,6 +41,30 @@ class User < ActiveRecord::Base
   def limit
     score / 2
   end
+
+  def score
+    return 2000 if Round.where("picks_end < ?", DateTime.now).empty?
+    ActiveRecord::Base.connection.select_all( <<-SQL
+        SELECT
+          SUM(picks.points * teams.seed) AS points
+        FROM
+          team_round_results
+        JOIN
+          picks ON
+            picks.team_id = team_round_results.team_id AND
+            picks.round_id = team_round_results.round_id
+        JOIN
+          teams ON
+            teams.id = team_round_results.team_id
+        WHERE
+          team_round_results.win = true AND
+          picks.user_id = #{id}
+      SQL
+      )
+      .first["points"]
+      .to_i
+  end
+
 
   private
   def ensure_session_token
@@ -56,4 +74,5 @@ class User < ActiveRecord::Base
   def downcase_email
     self.email = self.email.downcase unless self.email.nil?
   end
+
 end

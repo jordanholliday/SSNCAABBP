@@ -11,6 +11,14 @@ class Pick < ActiveRecord::Base
     Pick.where(user_id: user.id).where(round_id: round.id).includes(:team)
   end
 
+  def result
+    TeamRoundResult.where(
+      "round_id = ? AND team_id = ?",
+      self.round_id,
+      self.team_id
+      )
+  end
+
   private
   def bet_limit_half_total_points_per_round
     return unless points.is_a?(Integer)
@@ -26,4 +34,5 @@ class Pick < ActiveRecord::Base
       errors[:round] << ": No more picks for that round!"
     end
   end
+
 end

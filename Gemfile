@@ -28,6 +28,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Bootstrap
 gem 'bootstrap', '~> 4.0.0.alpha3'
+#fontawesome
+gem "font-awesome-rails"
 
 # Use Unicorn as the app server
 # gem 'unicorn'

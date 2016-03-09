@@ -10,12 +10,12 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   def password=(password)
-    @password = password
+    @password = password.strip
     self.password_digest = BCrypt::Password.create(password).to_s
   end
 
   def is_password?(password)
-    BCrypt::Password.new(password_digest).is_password?(password)
+    BCrypt::Password.new(password_digest).is_password?(password.strip)
   end
 
   def self.find_by_credentials(email, password)

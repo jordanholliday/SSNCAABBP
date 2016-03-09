@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   after_initialize :ensure_session_token
+  before_save :downcase_email
   validates :email, :team_name, :password_digest, :session_token, presence: true
   validates :email, uniqueness: true
   validates :password, length: {minimum: 6, allow_nil: true}
@@ -18,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_credentials(email, password)
-    user = User.find_by(email: email)
+    user = User.find_by(email: email.downcase)
     return nil unless user
 
     if user.is_password?(password)
@@ -49,5 +50,9 @@ class User < ActiveRecord::Base
   private
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64
+  end
+
+  def downcase_email
+    self.email = self.email.downcase unless self.email.nil?
   end
 end

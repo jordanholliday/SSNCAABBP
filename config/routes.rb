@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:new, :create, :show, :index]
   resource :session, only: [:new, :create, :destroy]
   resources :teams, only: [:index, :create, :destroy]
   resources :games, only:[:index, :create, :destroy]
-  resources :picks, only:[:new, :index, :create]
+  resources :picks
+  resources :rounds, only:[:index]
+  resources :statics, only:[:index]
 
-  root to: 'users#new'
+  root to: 'statics#index'
 end

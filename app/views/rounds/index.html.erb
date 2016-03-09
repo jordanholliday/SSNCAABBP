@@ -1,0 +1,6 @@
+<% @rounds.each do |round| %>
+  <strong><p><%= round.name %></p></strong>
+  <% round.teams_in_round.sort.each do |team| %>
+    <p>(<%= team.seed %>) <%= team.name %></p>
+  <% end %>
+<% end %>

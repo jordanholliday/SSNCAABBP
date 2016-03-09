@@ -2,6 +2,10 @@
 <form action="<%= users_url %>" method="POST">
   <%= auth_token %>
   <p>
+    <label for="name">Your Name</label>
+    <input type="text" name="user[name]" value="<%= @user.name %>" id="name">
+  </p>
+  <p>
     <label for="email">Email</label>
     <input type="email" name="user[email]" value="<%= @user.email %>" id="email">
   </p>
@@ -17,4 +21,3 @@
     <input type="submit" value="Sign Up" id="sign_up">
   </p>
 </form>
-

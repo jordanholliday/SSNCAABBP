@@ -38,6 +38,14 @@ class User < ActiveRecord::Base
     # come back to total up pick results
   end
 
+  def <=>(user)
+    self.score <=> user.score
+  end
+
+  def limit
+    score / 2
+  end
+
   private
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64

@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :redirect_unless_logged_out, only: [:new, :create]
-  before_action :redirect_if_logged_out, only: [:show]
+  before_action :redirect_if_logged_out, only: [:show, :index]
+
+  def index
+    @users = User.all.sort
+  end
 
   def new
     @user = User.new
@@ -11,7 +15,7 @@ class UsersController < ApplicationController
 
     if @user.save
       login!(@user)
-      redirect_to user_url(@user)
+      redirect_to users_url
     else
       flash.now[:errors] = @user.errors.full_messages
       render :new
@@ -24,6 +28,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:email, :team_name, :password)
+    params.require(:user).permit(:email, :team_name, :password, :name)
   end
 end

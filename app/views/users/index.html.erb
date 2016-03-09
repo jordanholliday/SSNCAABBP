@@ -1,0 +1,14 @@
+
+  <table class="table table-striped">
+    <tr>
+      <th>Player</th>
+      <th>Score</th>
+    </tr>
+      <% @users.each do |user| %>
+        <tr>
+          <td><strong><%= user.team_name %></strong>
+              (<%= user.name %>)</td>
+          <td><%= user.score %></td>
+        </tr>
+      <% end %>
+    </table>

@@ -1,0 +1,19 @@
+<hr>
+
+<% Round.reverse_chron.each do |round| %>
+  <p><strong><%= round.name %></strong>
+  <% round_picks = @picks.select { |pick| pick.round_id == round.id } %>
+  <% points_wagered = round_picks.inject(0) { |c, pick| c + pick.points } %>
+  <em>(<%= points_wagered %> / <%= current_user.limit %> points wagered)</em></p>
+
+  <% round_picks.each do |pick| %>
+    <p>
+      <%= pick.team.name %>
+      <%= pick.points %>
+      <%= link_to "Delete", pick_url(pick), method: :delete %>
+    </p>
+  <% end %>
+  <% if round_picks.length == 0 %>
+    <p><em>No picks... yet.</em></p>
+  <% end %>
+<% end %>

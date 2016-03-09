@@ -28,6 +28,12 @@ module ApplicationHelper
     params: { method: :post, win: false, team_id: team_id, round_id: round_id }
   end
 
+  def remove_team_round_result_button(team_round_result, team_id, round_id)
+    button_to "(undo?)",
+    team_round_result_url(team_round_result),
+    method: :delete
+  end
+
   def already_won?(team, round)
     team.team_round_results.select {
       |result| result.round_id == round.id && result.win}.any?

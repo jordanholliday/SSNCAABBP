@@ -1,0 +1,38 @@
+<% if already_won?(team, round) %>
+
+  <td>
+    <p><%= remove_team_round_result_button(
+            team.team_round_results.find { |trr|
+                trr.round_id == round.id
+                },
+            team.id,
+            round.id
+            ) %></p>
+  </td>
+  <td>
+    <p>n/a</p>
+  </td>
+
+<% elsif already_lost?(team, round) %>
+
+ <td>
+   <p>n/a</p>
+ </td>
+ <td>
+    <p><%= remove_team_round_result_button(
+            team.team_round_results.find { |trr|
+                trr.round_id == round.id
+                },
+            team.id,
+            round.id
+            ) %></p>
+  </td>
+
+<% else %>
+  <td>
+    <p><%= team_round_result_win_button(team.id, round.id) %></p>
+  </td>
+  <td>
+    <p><%= team_round_result_loss_button(team.id, round.id) %></p>
+  </td>
+<% end %>

@@ -10,6 +10,12 @@ class TeamRoundResultsController < ApplicationController
     end
   end
 
+  def destroy
+    trr = TeamRoundResult.find(params[:id])
+    trr.destroy
+    redirect_to rounds_url
+  end
+
 
   private
   def team_round_result_params

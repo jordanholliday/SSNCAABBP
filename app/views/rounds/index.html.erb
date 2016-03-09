@@ -1,25 +1,18 @@
 <% @rounds.each do |round| %>
   <strong><p><%= round.name %></p></strong>
   <table class="table table-striped">
+    <tr>
+      <th>Team</th>
+      <th>Win?</th>
+      <th>Loss?</th>
     <% round.teams_in_round.includes(:team_round_results).sort.each do |team| %>
       <tr>
         <td>
           <p>(<%= team.seed %>) <%= team.name %></p>
         </td>
-        <td>
-          <% unless already_won?(team, round) %>
-            <p><%= team_round_result_win_button(team.id, round.id) %></p>
-          <% else %>
-            <p>SAVED</p>
-          <% end %>
-        </td>
-        <td>
-          <% unless already_lost?(team, round) %>
-            <p><%= team_round_result_loss_button(team.id, round.id) %></p>
-          <% else %>
-            <p>SAVED</p>
-          <% end %>
-        </td>
+
+        <%= render 'toggle_win_loss', team: team, round: round %>
+
       </tr>
     <% end %>
   </table>

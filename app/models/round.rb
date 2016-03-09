@@ -3,8 +3,7 @@ class Round < ActiveRecord::Base
 
   has_many :games
   has_many :picks, through: :games
-  has_many :home_teams, through: :games
-  has_many :away_teams, through: :games
+  has_many :team_round_results
 
   def self.reverse_chron
     Round.all.sort_by { |round| round.id * -1}

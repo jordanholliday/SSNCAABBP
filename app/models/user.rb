@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def <=>(user)
-    self.score <=> user.score
+    (self.score <=> user.score) * -1
   end
 
   def limit
@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def score
-    return 2000 if Round.where("picks_end < ?", DateTime.now).empty?
+    return 2000 unless TeamRoundResult.any?
     ActiveRecord::Base.connection.select_all( <<-SQL
         SELECT
           SUM(picks.points * teams.seed) AS points

@@ -16,7 +16,7 @@
 </form>
 
 <% @teams.each do |team| %>
-  <p>(<%= team.seed %>) <%= team.name %> <%= link_to "Delete", teams_url, method: :delete %></p>
+  <p>(<%= team.seed %>) <%= team.name %> <%= link_to "Delete", team_url(team), method: :delete %></p>
 <% end %>
 
 

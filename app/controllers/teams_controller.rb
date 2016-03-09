@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
   end
 
   def destroy
-    team = team.find(params[:id])
+    team = Team.find(params[:id])
     team.destroy
     redirect_to teams_url
   end

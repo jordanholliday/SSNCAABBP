@@ -24,6 +24,12 @@ class PicksController < ApplicationController
     @teams = Team.where(no_loss_teams_query).sort_by { |team| team.name }
 
     @picks = current_user.picks.includes(:team)
+
+    if flash[:round]
+      @last_pick_round_id = flash[:round].to_i
+    else
+      @last_pick_round_id = -1
+    end
   end
 
   def create
@@ -31,6 +37,7 @@ class PicksController < ApplicationController
     pick.user_id = current_user.id
 
     if pick.save
+      flash[:round] = params[:pick][:round_id]
       redirect_to new_pick_url
     else
       flash[:errors] = pick.errors.full_messages

@@ -1,5 +1,7 @@
 class Pick < ActiveRecord::Base
-  validates :user_id, :round_id, :team_id, :points, :multiplier, presence: true
+  after_initialize :ensure_multiplier
+
+  validates :user_id, :round_id, :team_id, :points, presence: true
   validates :points, numericality: {only_integer: true}
   validates :multiplier, inclusion: { in: [1, 2] }
   validate :bet_limit_half_total_points_per_round, :one_double_per_round, :one_bet_per_team_per_round
@@ -53,6 +55,10 @@ class Pick < ActiveRecord::Base
         team_id: self.team_id).any?
       errors[:pick] << ": Already picked that team!"
     end
+  end
+
+  def ensure_multiplier
+    self.multiplier ||= 1
   end
 
 end

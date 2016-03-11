@@ -25,6 +25,8 @@ class PicksController < ApplicationController
 
     @picks = current_user.picks.includes(:team)
 
+    @current_and_past_rounds = Round.where("picks_start < ?", DateTime.now)
+
     if flash[:round]
       @last_pick_round_id = flash[:round].to_i
     else

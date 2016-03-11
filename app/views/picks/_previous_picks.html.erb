@@ -1,6 +1,6 @@
 <hr>
 
-<% Round.reverse_chron.each do |round| %>
+<% current_and_past_rounds.reverse_chron.each do |round| %>
   <p><strong><%= round.name %></strong>
   <% round_picks = @picks.select { |pick| pick.round_id == round.id } %>
   <% points_wagered = round_picks.inject(0) { |c, pick| c + pick.points } %>

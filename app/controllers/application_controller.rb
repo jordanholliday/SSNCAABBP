@@ -38,4 +38,13 @@ class ApplicationController < ActionController::Base
     redirect_to users_url unless admin?
   end
 
+  def redirect_if_picks_closed
+    if Round.where("picks_end > ?", DateTime.now)
+            .where("picks_start < ?", DateTime.now)
+            .none?
+      flash[:errors] = ["Picks are closed!"]
+      redirect_to users_url
+    end
+  end
+
 end

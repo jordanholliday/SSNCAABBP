@@ -1,5 +1,5 @@
 class PicksController < ApplicationController
-  before_action :redirect_if_logged_out
+  before_action :redirect_if_logged_out, :redirect_if_picks_closed
   before_action :redirect_to_new_picks, only: [:index]
 
   def index

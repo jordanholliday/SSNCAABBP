@@ -35,7 +35,14 @@ class User < ActiveRecord::Base
   end
 
   def <=>(user)
-    (self.score <=> user.score) * -1
+    self_score = self.score
+    user_score = user.score
+
+    if self_score == user_score
+      return [1, -1].sample
+    else
+      (self_score <=> user_score) * -1
+    end
   end
 
   def limit

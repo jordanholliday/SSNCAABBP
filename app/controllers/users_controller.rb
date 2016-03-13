@@ -30,12 +30,6 @@ class UsersController < ApplicationController
     @scoreboard = scores_by_user_by_round
   end
 
-  def user_score(scoreboard, user_name)
-   scoreboard
-      .select { |score| score_rounds.include?(score["round_id"].to_i) }
-      .select { |score| score["name"].to_i == user_name }
-      .inject(0) { |total, score| total + score["points"].to_i }
-  end
   private
   def user_params
     params.require(:user).permit(:email, :team_name, :password, :name)

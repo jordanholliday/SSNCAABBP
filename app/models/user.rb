@@ -58,11 +58,60 @@ class User < ActiveRecord::Base
             teams.id = team_round_results.team_id
         WHERE
           team_round_results.win = true AND
-          picks.user_id = #{id}
+          picks.user_id = #{id} AND
+          picks.round_id IN (
+            SELECT
+              rounds.id
+            FROM
+              rounds
+            WHERE
+              rounds.picks_end < '#{DateTime.now + 12.hours}'
+            ORDER BY
+              rounds.picks_end DESC
+            LIMIT
+              2
+            )
       SQL
       )
       .first["points"]
       .to_i
+  end
+
+  def self.scores_by_user_by_round
+    return 2000 unless TeamRoundResult.any?
+
+    ActiveRecord::Base.connection.select_all( <<-SQL
+      SELECT
+        users.team_name,
+        users.name,
+        picks.round_id,
+        SUM(picks.points *
+        picks.multiplier *
+        teams.seed *
+        (
+        CASE WHEN
+            team_round_results.win = true
+        THEN
+            1
+        ELSE
+            0
+        END)
+        ) AS points
+      FROM
+        team_round_results
+      JOIN
+        picks ON
+          picks.team_id = team_round_results.team_id AND
+          picks.round_id = team_round_results.round_id
+      JOIN
+        teams ON
+          teams.id = team_round_results.team_id
+      JOIN
+        users ON users.id = picks.user_id
+      GROUP BY
+        users.team_name, users.name, picks.round_id
+      SQL
+      )
   end
 
 

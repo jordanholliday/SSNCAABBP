@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :current_user, :logged_in?, :admin?
+  helper_method :current_user, :logged_in?, :admin?, :score_rounds
 
   def current_user
     @current_user ||= User.find_by(session_token: session[:session_token])
@@ -45,6 +45,13 @@ class ApplicationController < ActionController::Base
       flash[:errors] = ["Picks are closed!"]
       redirect_to users_url
     end
+  end
+
+  def score_rounds
+    Round.where("picks_end < ?", DateTime.now)
+          .order(picks_end: :desc)
+          .limit(2)
+          .pluck(:id)
   end
 
 end

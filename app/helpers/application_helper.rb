@@ -44,5 +44,12 @@ module ApplicationHelper
       |result| result.round_id == round.id && result.win == false}.any?
   end
 
+  def user_score(scoreboard, user_name, score_round_ids)
+   scoreboard
+      .select { |score| score_round_ids.include?(score["round_id"].to_i) }
+      .select { |score| score["name"] == user_name }
+      .inject(0) { |total, score| total + score["points"].to_i }
+  end
+
 
 end

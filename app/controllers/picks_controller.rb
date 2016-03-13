@@ -1,9 +1,12 @@
 class PicksController < ApplicationController
-  before_action :redirect_if_logged_out, :redirect_if_picks_closed
-  before_action :redirect_to_new_picks, only: [:index]
+  before_action :redirect_if_logged_out
+  before_action :redirect_if_picks_closed, except: [:index]
+  before_action :redirect_unless_admin, only: [:index]
 
   def index
-
+    @picks = Pick.all
+              .includes(:user, :team, :round)
+              .sort_by { |pick| [pick.round_id * -1, pick.user_id]}
   end
 
   def new

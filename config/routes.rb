@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :users, only: [:new, :create, :show, :index]
+  resources :users, only: [:new, :create, :show, :index] do
+    collection do
+      get 'scoreboard'
+    end
+  end
+
   resource :session, only: [:new, :create, :destroy]
   resources :teams, only: [:index, :create, :destroy]
   resources :games, only:[:index, :create, :destroy]

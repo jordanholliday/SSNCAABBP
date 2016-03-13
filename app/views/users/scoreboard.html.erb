@@ -1,0 +1,15 @@
+<table class="table table-striped">
+  <tr>
+    <th>
+    </th>
+    <% Round.where("picks_end < ?", DateTime.now).each do |round| %>
+    <th>
+      <%= round.name %>
+    </th>
+    <% end %>
+    <th>
+      Total
+    </th>
+  </tr>
+  <%= render 'scoreboard_row', scoreboard: @scoreboard %>
+</table>

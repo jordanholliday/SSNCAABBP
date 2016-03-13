@@ -1,0 +1,16 @@
+<% @picks.each_with_index do |pick, idx| %>
+  <% if pick != @picks.first && pick.round_id != @picks[idx -1].round_id %>
+    <hr>
+  <% end %>
+  <% if pick != @picks.first && pick.user_id != @picks[idx -1].user_id %>
+    <br>
+  <% end %>
+  <p><%= pick.round.name %>,
+    <%= pick.user.name %>,
+    <%= pick.team.name %>,
+    <%= pick.points %>
+    <% if pick.multiplier == 2 %>
+      <b>x2</b>
+    <% end %>
+  </p>
+<% end %>

@@ -4,6 +4,7 @@
       <%= link_to "Scoreboard", users_url %> |
       <%= link_to "Add/Edit Picks", new_pick_url %> |
       <% if admin? %>
+        <%= link_to "All Picks", picks_url %> |
         <%= link_to "Edit Teams", teams_url %> |
         <%= link_to "Edit Round Results", rounds_url %> |
       <% end %>

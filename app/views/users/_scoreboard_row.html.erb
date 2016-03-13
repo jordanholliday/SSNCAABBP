@@ -1,0 +1,38 @@
+<!-- Process scoreboard query into array with subarrs for each user's results -->
+<% scoreboard_arr = [] %>
+<% round_ids = score_rounds %>
+<% scoreboard.each_with_index do |score, idx| %>
+  <% if score == scoreboard.first || score["team_name"] != scoreboard[idx - 1]["team_name"] %>
+      <% scoreboard_arr << [] %>
+      <% scoreboard_arr.last << "<b>#{score['team_name']}</b>" %>
+      <% scoreboard_arr.last.first.concat(" (#{score['name']})") %>
+      <% scoreboard_arr.last << score["points"] %>
+  <% elsif score == scoreboard.last || score["team_name"] != scoreboard[idx + 1]["team_name"] %>
+      <% scoreboard_arr.last << score["points"] %>
+      <% scoreboard_arr.last << user_score(scoreboard, score["name"], round_ids) %>
+  <% else %>
+    <% scoreboard_arr.last << score["points"] %>
+  <% end %>
+<% end %>
+
+<!-- Render scoreboard array -->
+<% scoreboard_arr.sort_by! {|row| row.last * -1 } %>
+<% scoreboard_arr.each do |user_row| %>
+  <% user_row.each do |col| %>
+    <% if col == user_row.first %>
+      <tr>
+        <td>
+          <%= col.html_safe %>
+        </td>
+    <% elsif col == user_row.last %>
+        <td>
+          <%= col %>
+        </td>
+      </tr>
+    <% else %>
+      <td>
+        <%= col %>
+      </td>
+    <% end %>
+  <% end %>
+<% end %>

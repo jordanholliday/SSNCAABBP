@@ -15,8 +15,12 @@
   <% end %>
 <% end %>
 
+<% scoreboard_arr.each do |row| %>
+  <%= row %><br>
+<% end %>
 
-<% scoreboard_arr.sort_by! {|row| row.last * -1 } %>
+
+<%# scoreboard_arr.sort_by! {|row| row.last * -1 } %>
 <% scoreboard_arr.each do |user_row| %>
   <% user_row.each do |col| %>
     <% if col == user_row.first %>

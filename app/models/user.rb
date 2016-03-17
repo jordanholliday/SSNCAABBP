@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
             CASE teams.seed
             WHEN 1
             THEN 1.5
-            ELSE teams.seed
+            ELSE teams.seed END
             )
           ) AS points
         FROM

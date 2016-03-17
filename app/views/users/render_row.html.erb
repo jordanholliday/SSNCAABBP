@@ -1,0 +1,21 @@
+<!-- Render scoreboard array -->
+<% scoreboard_arr.sort_by! {|row| row.last * -1 } %>
+<% scoreboard_arr.each do |user_row| %>
+  <% user_row.each do |col| %>
+    <% if col == user_row.first %>
+      <tr>
+        <td>
+          <%= col.html_safe %>
+        </td>
+    <% elsif col == user_row.last %>
+        <td>
+          <%= col %>
+        </td>
+      </tr>
+    <% else %>
+      <td>
+        <%= col %>
+      </td>
+    <% end %>
+  <% end %>
+<% end %>

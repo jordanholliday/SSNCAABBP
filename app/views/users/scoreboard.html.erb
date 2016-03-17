@@ -11,9 +11,6 @@
       Total
     </th>
   </tr>
-  <% @scoreboard.each do |score| %>
-    <%= score %>
-  <% end %>
 
-  <%#= render 'scoreboard_row', scoreboard: @scoreboard %>
+  <%= render 'scoreboard_row', scoreboard: @scoreboard %>
 </table>

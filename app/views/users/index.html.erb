@@ -6,7 +6,7 @@
     </tr>
       <% @users.each do |user| %>
         <tr>
-          <td><strong><%= user.team_name %></strong>
+          <td><strong><%= link_to user.team_name, user_url(user) %></strong>
               (<%= user.name %>)</td>
           <td><%= user.score %></td>
         </tr>

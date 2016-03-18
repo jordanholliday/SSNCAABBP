@@ -1,1 +1,19 @@
 <h1><%= @user.team_name %></h1>
+
+<% @user_picks.each_with_index do |pick, idx| %>
+  <% if pick == @user_picks.first || pick["id"] != @user_picks[idx-1]["id"]%>
+    <br><br><b><%= pick["round_name"] %></b><br>
+  <% end %>
+  <%= pick["name"] %>, <%= pick["points"] %>
+  <% if pick["multiplier"] == "2" %> <b>x2</b><% end %>
+  <% if pick["result"] != nil %>
+    <% if pick["result"] == "t"  %>
+      (WIN, <%= pick["payout"] %>)
+    <% else %>
+      (LOSS) %>
+      <% end %>
+  <% end %>
+  <br>
+<% end %>
+
+

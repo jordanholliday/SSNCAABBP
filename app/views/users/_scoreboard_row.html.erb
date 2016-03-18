@@ -15,10 +15,22 @@
   <% end %>
 <% end %>
 
-<% scoreboard_arr.each do |row| %>
+<% scoreboard.each do |row| %>
   <%= row %><br>
 <% end %>
 
+<!-- Sort by last row is not working because sometiems the last row (integer
+     score) isn't reached (ie, when there is only one round score and the above
+     processor never reached the "last" condition).
+
+     In those cases, this is attempting to sort strings and failing.
+
+     ALSO, the scores are not necessarily coming out in order; may need to
+     select the rows where team_name or name match, then sort by round, then
+     add up scores push into ordered array
+
+     ALSO, still multiplying one seeds by 1, not 1.5.
+     -->
 
 <%# scoreboard_arr.sort_by! {|row| row.last * -1 } %>
 <% scoreboard_arr.each do |user_row| %>

@@ -4,7 +4,7 @@
   <% if pick == @user_picks.first || pick["id"] != @user_picks[idx-1]["id"]%>
     <br><br><b><%= pick["round_name"] %></b><br>
   <% end %>
-  <%= pick["name"] %>, <%= pick["points"] %>
+  (<%= pick["seed"] %>) <%= pick["name"] %>, <%= pick["points"] %>
   <% if pick["multiplier"] == "2" %> <b>x2</b><% end %>
   <% if pick["result"] != nil %>
     <% if pick["result"] == "t"  %>

@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    past_rounds = Round.where("picks_end < ?", DateTime.now)
+    past_rounds = Round.where("picks_end < ?", DateTime.now )
                         .pluck(:id)
                         .join(",")
     # @user_picks = [1]

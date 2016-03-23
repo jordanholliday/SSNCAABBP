@@ -14,7 +14,7 @@
 
 <% results_arr = [] %>
 <%  teams.each do |team|
-      team_results = [team["team_name"]]
+      team_results = [team]
       rounds.each do |round|
         team_results << round.id
       end

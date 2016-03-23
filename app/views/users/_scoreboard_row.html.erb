@@ -1,4 +1,12 @@
 <!-- Process scoreboard query into array with subarrs for each user's results -->
+
+<% # get all the usernames
+  users = []
+    scoreboard.each do |row|
+    users << row["team_name"]
+  end
+ %>
+
 <% scoreboard_arr = [] %>
 <% round_ids = score_rounds %>
 <% scoreboard.each_with_index do |score, idx| %>
@@ -15,8 +23,8 @@
   <% end %>
 <% end %>
 
-<% scoreboard.each do |row| %>
-  <%= row %><br>
+<% users.each do |user| %>
+  <%= user %><br>
 <% end %>
 
 <!-- Sort by last row is not working because sometiems the last row (integer

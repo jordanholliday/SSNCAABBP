@@ -30,9 +30,14 @@
 %>
 
 <% results_arr.each do |row| %>
-  <%= row %>
+  <tr>
+  <% row.each do |index| %>
+    <td><%= row %></td>
+  <% end %>
+  </tr>
 <% end %>
 
+</table>
 
 
 <!-- Sort by last row is not working because sometiems the last row (integer

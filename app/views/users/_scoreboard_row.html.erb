@@ -8,10 +8,6 @@
   teams = teams.uniq.sort
  %>
 
- <% rounds.each do |row| %>
-   <%= row.id %><br>
- <% end %>
-
 <% results_arr = [] %>
 <%  teams.each do |team|
       team_results = [team]

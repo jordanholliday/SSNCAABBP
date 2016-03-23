@@ -9,6 +9,19 @@
   teams = teams.uniq
  %>
 
+ <% # get all the rounds
+   teams = []
+     scoreboard.each do |row|
+     teams << row["team_name"]
+   end
+
+   teams = teams.uniq
+  %>
+
+ <% # add round-by-round
+
+  %>
+
 <% scoreboard_arr = [] %>
 <% round_ids = score_rounds %>
 <% scoreboard.each_with_index do |score, idx| %>
@@ -25,8 +38,8 @@
   <% end %>
 <% end %>
 
-<% teams.each do |team| %>
-  <%= team %><br>
+<% scoreboard.each do |row| %>
+  <%= row %><br>
 <% end %>
 
 <!-- Sort by last row is not working because sometiems the last row (integer

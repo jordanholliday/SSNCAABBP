@@ -10,12 +10,12 @@
  %>
 
  <% # get all the rounds
-   teams = []
+   rounds = []
      scoreboard.each do |row|
-     teams << row["team_name"]
+     rounds << row["round_id"]
    end
 
-   teams = teams.uniq
+   rounds = rounds.uniq
   %>
 
  <% # add round-by-round
@@ -39,6 +39,14 @@
 <% end %>
 
 <% scoreboard.each do |row| %>
+  <%= row %><br>
+<% end %>
+<hr>
+<% users.each do |row| %>
+  <%= row %><br>
+<% end %>
+<hr>
+<% rounds.each do |row| %>
   <%= row %><br>
 <% end %>
 

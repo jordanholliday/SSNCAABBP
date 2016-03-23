@@ -9,15 +9,6 @@
   teams = teams.uniq.sort
  %>
 
- <% # get all the rounds
-   rounds = []
-     scoreboard.each do |row|
-     rounds << row["round_id"]
-   end
-
-   rounds = rounds.uniq.sort
-  %>
-
 <% scoreboard_arr = [] %>
 <% round_ids = score_rounds %>
 <% scoreboard.each_with_index do |score, idx| %>

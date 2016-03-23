@@ -63,6 +63,7 @@ class UsersController < ApplicationController
 
   def scoreboard
     @scoreboard = scores_by_user_by_round
+    @rounds = Round.where("picks_end < ?", DateTime.now)
   end
 
   private

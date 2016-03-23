@@ -6,7 +6,7 @@
     teams << row["team_name"]
   end
 
-  teams = teams.uniq
+  teams = teams.uniq.sort
  %>
 
  <% # get all the rounds
@@ -15,11 +15,7 @@
      rounds << row["round_id"]
    end
 
-   rounds = rounds.uniq
-  %>
-
- <% # add round-by-round
-
+   rounds = rounds.uniq.sort
   %>
 
 <% scoreboard_arr = [] %>
@@ -41,11 +37,6 @@
 <% scoreboard.each do |row| %>
   <%= row %><br>
 <% end %>
-<hr>
-<% users.each do |row| %>
-  <%= row %><br>
-<% end %>
-<hr>
 <% rounds.each do |row| %>
   <%= row %><br>
 <% end %>

@@ -19,9 +19,9 @@
         matched_row =
           scoreboard
           .find {|row| row["team_name"] == team && row["round_id"] == round.id.to_s}
-        team_results << matched_row["points"].to_s
+        team_results << matched_row["points"].to_i
       end
-
+      team_results << team_results[1..-1].inject(:+)
       results_arr << team_results
     end
 %>

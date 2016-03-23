@@ -30,30 +30,6 @@
 %>
 
 
-<% scoreboard_arr = [] %>
-<% round_ids = score_rounds %>
-<% scoreboard.each_with_index do |score, idx| %>
-  <% if score == scoreboard.first || score["team_name"] != scoreboard[idx - 1]["team_name"] %>
-      <% scoreboard_arr << [] %>
-      <% scoreboard_arr.last << "<b>#{score['team_name']}</b>" %>
-      <% scoreboard_arr.last.first.concat(" (#{score['name']})") %>
-      <% scoreboard_arr.last << score["points"] %>
-  <% elsif score == scoreboard.last || score["team_name"] != scoreboard[idx + 1]["team_name"] %>
-      <% scoreboard_arr.last << score["points"] %>
-      <% scoreboard_arr.last << user_score(scoreboard, score["name"], round_ids) %>
-  <% else %>
-    <% scoreboard_arr.last << score["points"] %>
-  <% end %>
-<% end %>
-
-<% results_arr.each do |row| %>
-  <%= row %><br>
-<% end %>
-
-<% scoreboard.each do |row| %>
-  <%= row %><br>
-<% end %>
-
 
 <!-- Sort by last row is not working because sometiems the last row (integer
      score) isn't reached (ie, when there is only one round score and the above

@@ -8,7 +8,7 @@
   teams = teams.uniq.sort
  %>
 
-<% results_arr = [] %>
+<%  results_arr = [] %>
 <%  teams.each do |team|
       team_results = [team]
       rounds.each do |round|
@@ -16,13 +16,15 @@
           scoreboard
           .find {|row| row["team_name"] == team && row["round_id"] == round.id.to_s}
 
-      matched_row ||= 0
-      team_results << matched_row["points"].to_i
+        points = matched_row ? matched_row["points"].to_i : 0
+        team_results << points
       end
+
       team_results << team_results[1..-1].inject(:+)
       results_arr << team_results
-      results_arr.sort_by! {|result| result[-1] * -1}
     end
+
+  results_arr.sort_by! {|result| result[-1] * -1}
 %>
 
 <% results_arr.each do |row| %>

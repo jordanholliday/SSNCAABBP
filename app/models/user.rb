@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
             FROM
               rounds
             WHERE
-              rounds.picks_end < '#{DateTime.now + 12.hours}'
+              rounds.picks_end < '#{DateTime.now}'
             ORDER BY
               rounds.picks_end DESC
             LIMIT

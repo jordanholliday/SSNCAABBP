@@ -3,7 +3,7 @@
 <% # get all the usernames
   teams = []
     scoreboard.each do |row|
-    teams << row["team_name"]
+    teams << row["team_name"] + "##" + row["id"]
   end
   teams = teams.uniq.sort
  %>
@@ -29,26 +29,20 @@
 
 <% results_arr.each do |row| %>
   <tr>
-  <% row.each do |index| %>
-    <td><%= index %></td>
+  <% row.each_with_index do |entry, idx| %>
+    <td>
+    <% if idx == 0 %>
+      <% team_name = entry.split("##")[0]
+         user_id = entry.split("##")[1] %>
+      <%= link_to team_name, user_url(user_id) %>
+    <% else %>
+      <%= entry %>
+    <% end %>
+    </td>
   <% end %>
   </tr>
 <% end %>
 
 </table>
-
-
-<!-- Sort by last row is not working because sometiems the last row (integer
-     score) isn't reached (ie, when there is only one round score and the above
-     processor never reached the "last" condition).
-
-     In those cases, this is attempting to sort strings and failing.
-
-     ALSO, the scores are not necessarily coming out in order; may need to
-     select the rows where team_name or name match, then sort by round, then
-     add up scores push into ordered array
-
-     ALSO, still multiplying one seeds by 1, not 1.5.
-     -->
 
 

@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 
   def scoreboard
     @scoreboard = scores_by_user_by_round
-    @rounds = Round.where("picks_end < ?", DateTime.now)
+    @rounds = Round.all.sort
   end
 
   private
@@ -102,7 +102,7 @@ class UsersController < ApplicationController
       JOIN
         users ON users.id = picks.user_id
       GROUP BY
-        users.team_name, users.name, picks.round_id
+        users.id, users.team_name, users.name, picks.round_id
       SQL
       )
   end

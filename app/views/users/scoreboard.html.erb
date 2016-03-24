@@ -2,10 +2,10 @@
   <tr>
     <th>
     </th>
-    <% @rounds.each do |round| %>
-    <th>
-      <%= round.name %>
-    </th>
+    <% Round.all.sort.each do |round| %>
+      <th>
+        <%= round.name %>
+      </th>
     <% end %>
     <th>
       Total

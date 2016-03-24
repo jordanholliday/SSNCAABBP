@@ -11,10 +11,10 @@
 <%  results_arr = [] %>
 <%  teams.each do |team|
       team_results = [team]
-      rounds.each do |round|
+      %(1 2 3 4 5 6).each do |round|
         matched_row =
           scoreboard
-          .find {|row| row["team_name"] == team && row["round_id"] == round.id.to_s}
+          .find {|row| row["team_name"] == team && row["round_id"] == round}
 
         points = matched_row ? matched_row["points"].to_i : 0
         team_results << points

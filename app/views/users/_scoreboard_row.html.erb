@@ -14,7 +14,7 @@
       %w(1 2 3 4 5 6).each do |round|
         matched_row =
           scoreboard
-          .find {|row| row["team_name"] == team && row["round_id"] == round}
+          .find {|row| row["team_name"] == team.split("##")[0] && row["round_id"] == round}
 
         points = matched_row ? matched_row["points"].to_i : 0
         team_results << points
@@ -34,7 +34,7 @@
     <% if idx == 0 %>
       <% team_name = entry.split("##")[0]
          user_id = entry.split("##")[1] %>
-      <%= link_to team_name, user_url(user_id) %>
+      <b><%= link_to team_name, user_url(user_id) %></b>
     <% else %>
       <%= entry %>
     <% end %>

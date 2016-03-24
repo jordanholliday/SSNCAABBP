@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 
   def scoreboard
     @scoreboard = scores_by_user_by_round
-    @rounds = Round.where("picks_end < ?", DateTime.now)
+    @rounds = Round.all.sort
   end
 
   private
@@ -74,6 +74,7 @@ class UsersController < ApplicationController
   def scores_by_user_by_round
     ActiveRecord::Base.connection.select_all(<<-SQL
       SELECT
+        users.id,
         users.team_name,
         users.name,
         picks.round_id,

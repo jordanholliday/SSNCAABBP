@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_unless_admin
-    redirect_to users_url unless admin?
+    redirect_to scoreboard_users_url unless admin?
   end
 
   def redirect_if_picks_closed
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
             .where("picks_start < ?", DateTime.now)
             .none?
       flash[:errors] = ["Picks are closed!"]
-      redirect_to users_url
+      redirect_to scoreboard_users_url
     end
   end
 

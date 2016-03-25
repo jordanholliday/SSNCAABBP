@@ -1,7 +1,7 @@
 <% if params[:controller] != 'statics' %>
   <% if logged_in? %>
     <p><img src="http://i.imgur.com/WWe6IMs.png" width="25" style="vertical-align: text-bottom;"> SSNCAABBP |
-      <%= link_to "Scoreboard", users_url %> |
+      <%= link_to "Scoreboard", scoreboard_users_url %> |
       <%= link_to "Add/Edit Picks", new_pick_url %> |
       <% if admin? %>
         <%= link_to "All Picks", picks_url %> |

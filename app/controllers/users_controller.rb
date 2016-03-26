@@ -62,8 +62,9 @@ class UsersController < ApplicationController
   end
 
   def scoreboard
-    @scoreboard = scores_by_user_by_round
-    @rounds = Round.all.sort
+    redirect_to users_url
+    # @scoreboard = scores_by_user_by_round
+    # @rounds = Round.all.sort
   end
 
   private
